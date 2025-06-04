@@ -20,6 +20,7 @@ userRouter.post("/signup", async(req, res) => {
     });
 
     if (existingUser) {
+        console.log("Error");
         return res.status(411).json({
             message: "Username already taken",
         });
@@ -62,6 +63,7 @@ userRouter.post("/signin", async(req, res) => {
     });
 
     if (existingUser) {
+        console.log("Accepted");
         const token = jwt.sign({
             userId: existingUser._id,
         }, JWT_SECRET);
@@ -70,6 +72,7 @@ userRouter.post("/signin", async(req, res) => {
         });
     }
 
+    console.log("Error");
     return res.status(411).json({
         message: "Wrong Username/Password",
     });
