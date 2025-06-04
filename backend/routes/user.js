@@ -97,7 +97,7 @@ userRouter.put("/update", authMiddleWare, async (req, res) => {
 });
 
 userRouter.get("/bulk", async(req, res) => {
-    const filter = req.query.filter;
+    const filter = req.query.filter || "";
     const users = await User.find({
         $or: [{
             firstName: {
