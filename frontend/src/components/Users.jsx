@@ -2,18 +2,23 @@ import { useEffect, useState } from "react"
 import { Button } from "./Button"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export const Users = () => {
     // Replace with backend call
-    const [users, setUsers] = useState([]);
+    const [usersy, setUsersy] = useState([]);
     const [filter, setFilter] = useState("");
+    const [searchParams] = useSearchParams();
+    const userId = searchParams.get("userId");
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
             .then(response => {
-                setUsers(response.data.user);
+                setUsersy(response.data.user);
             })
     }, [filter]);
+
+    const users = usersy.filter(user => user._id !== userId);
 
     return <>
         <div className="font-bold mt-6 text-lg">
@@ -47,7 +52,7 @@ function User({user}) {
             </div>
         </div>
 
-        <div className="flex flex-col justify-center h-ful">
+        <div className="flex flex-col justify-center h-full">
             <Button onClick={(e) => {
                 navigate("/send?id="+user._id+"&name="+user.firstName);
             }} label={"Send Money"} />

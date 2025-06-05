@@ -1,6 +1,6 @@
 const express = require("express");
 const { authMiddleWare } = require("../middleware");
-const { Account } = require("../db");
+const { Account, User } = require("../db");
 const { default: mongoose } = require("mongoose");
 
 const accountRouter = express.Router();
@@ -28,9 +28,9 @@ accountRouter.post('/transfer', authMiddleWare, async(req, res) => {
     session.startTransaction();
 
     const { amount, to } = req.body;
-    const userId = req.userId;
+
     const user = await Account.findOne({
-        userId: userId,
+        userId: req.userId,
     }).session(session);
 
     if (!user || user.balance < amount) {
@@ -43,7 +43,8 @@ accountRouter.post('/transfer', authMiddleWare, async(req, res) => {
     const account = await Account.findOne({
         userId: to,
     }).session(session);
-    if (!to) {
+
+    if (!account) {
         await session.abortTransaction();
         return res.status(400).json({
             message: "Invalid Account",
@@ -51,7 +52,7 @@ accountRouter.post('/transfer', authMiddleWare, async(req, res) => {
     }
 
     await Account.updateOne({
-        userId: userId,
+        userId: req.userId,
     }, {
         $inc: {
             balance: -amount,
@@ -65,8 +66,13 @@ accountRouter.post('/transfer', authMiddleWare, async(req, res) => {
         }
     }).session(session);
     
+    const guy = await User.findById(req.userId);
+    const firstName = guy.firstName;
+    
     await session.commitTransaction();
     res.json({
+        userId: req.userId,
+        firstName: firstName,
         message: "Transaction Successful",
     });
 });

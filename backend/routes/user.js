@@ -68,6 +68,8 @@ userRouter.post("/signin", async(req, res) => {
             userId: existingUser._id,
         }, JWT_SECRET);
         return res.status(200).json({
+            userId: existingUser._id,
+            firstName: existingUser.firstName,
             token: token,
         });
     }
