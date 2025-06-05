@@ -12,9 +12,8 @@ export const Signin = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    return <div className="bg-slate-300 h-screen w-screen flex justify-center">
-    <div className="flex flex-col justify-center">
-      <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
+    return <div className="bg-slate-300 h-screen w-screen flex justify-center items-center">
+      <div className="bg-white rounded-2xl shadow-2xl w-[400px] max-w-[90%] p-8 text-center">
         <Heading label={"Sign in"} />
         <SubHeading label={"Enter your credentials to access your account"} />
         <InputBox onChange={e => {
@@ -36,7 +35,6 @@ export const Signin = () => {
           }} label={"Sign in"} />
         </div>
         <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
-      </div>
     </div>
   </div>
 };
