@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 export const Users = () => {
-    // Replace with backend call
     const [usersy, setUsersy] = useState([]);
     const [filter, setFilter] = useState("");
     const [searchParams] = useSearchParams();

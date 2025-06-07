@@ -68,7 +68,7 @@ export const SendMoney = () => {
                 />
               </div>
               {transacted && (
-                <div className="text-green-500 text-sm pt-2">{transacted}</div>
+                <div className="text-green-500 text-sm pt-2">{transacted+" Redirecting in 3s"}</div>
               )}
               <button
                 onClick={handleFunction}

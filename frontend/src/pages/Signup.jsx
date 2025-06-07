@@ -25,7 +25,7 @@ export const Signup = () => {
             });
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
-                navigate("/dashboard");
+                navigate("/signin");
             }
         } catch(err) {
             if (err.response?.status === 411) {
