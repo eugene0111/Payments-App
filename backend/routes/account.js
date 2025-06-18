@@ -5,7 +5,7 @@ const { default: mongoose } = require("mongoose");
 
 const accountRouter = express.Router();
 
-accountRouter.get('/balance', authMddleWare, async (req, res) => {
+accountRouter.get('/balance', authMiddleWare, async (req, res) => {
     const userId = req.userId;
     const accounts = await Account.findOne({
         userId: userId,
